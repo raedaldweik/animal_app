@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: animal-app
+  # Default datasource: file-based H2 so the app runs with zero external setup.
+  datasource:
+    url: jdbc:h2:file:./data/animaldb;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  # Honour the PORT env var injected by PaaS platforms (Railway, Render, Heroku…).
+  port: ${PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+# Upstream image providers. Override any URL via env vars, e.g.
+# ANIMALAPP_PROVIDERS_CAT_URL, ANIMALAPP_PROVIDERS_DOG_API_URL, ANIMALAPP_PROVIDERS_BEAR_URL
+animalapp:
+  providers:
+    cat-url: https://cataas.com/cat
+    dog-api-url: https://dog.ceo/api/breeds/image/random
+    bear-url: https://loremflickr.com/640/480/bear
+
+logging:
+  level:
+    com.example.animalapp: INFO

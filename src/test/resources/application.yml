@@ -1,0 +1,20 @@
+# Test profile: isolated in-memory H2, recreated for every test run so tests
+# never depend on (or pollute) the file-based development database.
+spring:
+  datasource:
+    url: jdbc:h2:mem:animaldb-test;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: false
+
+animalapp:
+  providers:
+    cat-url: http://localhost/unused
+    dog-api-url: http://localhost/unused
+    bear-url: http://localhost/unused
